@@ -69,6 +69,12 @@ void ofApp::setup(){
 	
 	/********************
 	********************/
+	if(BootMode == BOOT_MODE__AUTOPLAY)	b_fullScreen = true;
+	else								b_fullScreen = false;
+	ofSetFullscreen(b_fullScreen);
+	
+	/********************
+	********************/
 	setup_Gui();
 	
 	/********************
@@ -185,7 +191,7 @@ void ofApp::draw_time()
 		int sec	= MusicTime_ms / 1000 - min * 60;
 		int ms	= MusicTime_ms % 1000;
 		
-		sprintf(buf, "%6d:%6d:%6d", min, sec, ms);
+		sprintf(buf, "%6d:%6d:%6d\n%6.1f", min, sec, ms, ofGetFrameRate());
 	}
 	
 	
@@ -335,6 +341,14 @@ void ofApp::keyPressed(int key){
 		}
 			break;
 			
+		case 'a':
+			b_fullScreen = !b_fullScreen;
+			ofSetFullscreen(b_fullScreen);
+			if(!b_fullScreen){
+				ofSetWindowShape( WIDTH, HEIGHT );
+			}
+			break;
+				
 		case ' ':
 			// change stage.
 			StageManager.setEvent(MusicTime_ms, STAGE_MANAGER::EVENT__CHANGE_STAGE);

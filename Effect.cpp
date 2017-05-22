@@ -23,8 +23,12 @@ EFFECT::~EFFECT()
 ******************************/
 void EFFECT::setup()
 {
+#ifdef TEXTMASK_SMALL
+	font.loadFont("Glamor-Bold.ttf", 20);
+#else
 	font.loadFont("FTY DELIRIUM NCV.ttf", 650);
-	
+#endif
+
 	shader_Split.load( "movEffect/Split/Split.vert", "movEffect/Split/Split.frag");
 	shader_Kaleido.load( "movEffect/Kaleido/kaleido.vert", "movEffect/Kaleido/kaleido.frag");
 	shader_Mirror_LR.load( "movEffect/Mirror_LR/Mirror_LR.vert", "movEffect/Mirror_LR/Mirror_LR.frag");
@@ -103,10 +107,26 @@ void EFFECT::draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst)
 		ofSetColor(255);
 		ofDisableAlphaBlending();
 		
+#ifdef TEXTMASK_SMALL
+		const float ofs_x = 10;
+		const float ofs_y = 10;
+		int counter = 0;
+		string text = "ISETAN JAPAN SENSES";
+		for(float y = 0; y < HEIGHT; y+=font.stringHeight(text) + ofs_y){
+			for(float x = counter * (-50); x < WIDTH; x+=font.stringWidth(text) + ofs_x){
+				font.drawString(text, x, y);
+			}
+			counter+=1;
+		}
+#else		
+
 		string text = "ISETAN";
 		float offset_x = font.stringWidth(text) / 2;
 		float offset_y = font.stringHeight(text) / 2;
 		font.drawString(text, fbo_Text.getWidth()/2 - offset_x, fbo_Text.getHeight()/2 + offset_y);
+
+#endif
+
 	fbo_Text.end();
 	
 	/* */
@@ -139,6 +159,8 @@ void EFFECT::draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst)
 		ofDisableAlphaBlending();
 		
 		fbo_dst_local.draw(0, 0, fbo_dst->getWidth(), fbo_dst->getHeight());
+		// fbo_Text.draw(0, 0, fbo_dst->getWidth(), fbo_dst->getHeight());
+		
 		fbo_dst->end();
 		
 	}else{
