@@ -44,11 +44,18 @@ private:
 		int counter;
 		
 		INTERVAL_TIMER()
-		: t_interval(3600), counter(1)
+		: t_interval(9000 /* 2.5h */), counter(1)
 		{
 		}
 		
 		bool IsBell(float ElapsedTime){
+			/********************
+			一瞬、クッと止まってしまうのが嫌なのでナシにしよう。
+			「毎日違うコンテンツ」でOKとする。
+			********************/
+			return false;
+			
+			/*
 			bool ret = false;
 			
 			while(0 < ElapsedTime - t_interval * counter){
@@ -56,6 +63,7 @@ private:
 				ret = true;
 			}
 			return ret;
+			*/
 		}
 		
 	};

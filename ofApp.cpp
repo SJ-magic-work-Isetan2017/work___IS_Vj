@@ -56,7 +56,7 @@ void ofApp::setup(){
 	********************/
 	ofSetWindowTitle("VJ");
 	ofSetVerticalSync(true);
-	ofSetFrameRate(60);
+	ofSetFrameRate(30);
 	ofSetWindowShape(WIDTH, HEIGHT);
 	ofSetEscapeQuitsApp(false);
 	
