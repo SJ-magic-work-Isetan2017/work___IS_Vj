@@ -14,6 +14,7 @@ ofApp::ofApp(int _BootMode)
 : Osc_MusicPlayer("127.0.0.1", 12347, 12350)
 , MusicTime_ms(-1)
 , b_DispTime(true)
+, b_Cursor(false)
 {
 	srand((unsigned) time(NULL));
 	
@@ -72,6 +73,8 @@ void ofApp::setup(){
 	if(BootMode == BOOT_MODE__AUTOPLAY)	b_fullScreen = true;
 	else								b_fullScreen = false;
 	ofSetFullscreen(b_fullScreen);
+	
+	ofHideCursor();
 	
 	/********************
 	********************/
@@ -344,6 +347,7 @@ void ofApp::keyPressed(int key){
 		case 'a':
 			b_fullScreen = !b_fullScreen;
 			ofSetFullscreen(b_fullScreen);
+			
 			if(!b_fullScreen){
 				ofSetWindowShape( WIDTH, HEIGHT );
 			}
@@ -352,6 +356,12 @@ void ofApp::keyPressed(int key){
 		case ' ':
 			// change stage.
 			StageManager.setEvent(MusicTime_ms, STAGE_MANAGER::EVENT__CHANGE_STAGE);
+			break;
+			
+		case 'c':
+			b_Cursor = !b_Cursor;
+			if(b_Cursor)	ofShowCursor();
+			else			ofHideCursor();
 			break;
 			
 		case 'd':

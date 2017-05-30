@@ -49,6 +49,7 @@ private:
 	bool b_DispGui[NUM_GUIS];
 	
 	bool b_fullScreen;
+	bool b_Cursor;
 	
 	/********************
 	********************/
