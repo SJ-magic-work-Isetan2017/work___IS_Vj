@@ -15,6 +15,7 @@ ofApp::ofApp(int _BootMode)
 , MusicTime_ms(-1)
 , b_DispTime(true)
 , b_Cursor(false)
+, particle(PARTICLE_SET::getInstance())
 {
 	srand((unsigned) time(NULL));
 	
@@ -37,6 +38,7 @@ void ofApp::exit()
 {
 #if(EXE_MODE == EXE__DEMO)
 	StageManager.exit();
+	particle->exit();
 #endif
 
 	fclose_LogFile();
@@ -92,8 +94,9 @@ void ofApp::setup(){
 	test_Stage.setup();
 #elif(EXE_MODE == EXE__DEMO)
 	StageManager.setup();
+	particle->setup();
 #endif
-
+	
 	/********************
 	********************/
 	Guis_LoadSetting();
@@ -132,6 +135,11 @@ void ofApp::setup_Gui()
 	********************/
 	Gui_Cam = new GUI_CAM;
 	Gui_Cam->setup("cam", "cam.xml", 10, 10);
+	
+	/********************
+	********************/
+	Gui_Particle = new GUI_PARTICLE;
+	Gui_Particle->setup("particle", "particle.xml", 10, 10);
 }
 
 /******************************
@@ -175,6 +183,7 @@ void ofApp::update(){
 	test_Stage.update(UseFftResult.get_Gain(1));
 #elif(EXE_MODE == EXE__DEMO)
 	StageManager.update(MusicTime_ms, UseFftResult.get_Gain(1));
+	particle->update(MusicTime_ms, 1.0);
 #endif
 }
 
@@ -247,6 +256,11 @@ void ofApp::draw(){
 	ofSetColor(255);
 	
 	fbo.draw(0, 0, ofGetWidth(), ofGetHeight());
+	
+#if(EXE_MODE == EXE__DEMO)
+	particle->draw();
+#endif
+
 	drawGuis();
 	ofPopStyle();
 }
@@ -266,6 +280,8 @@ void ofApp::drawGuis()
 	if(b_DispGui[GUI_ID__STAGE]) Gui_Stage->gui.draw();
 	
 	if(b_DispGui[GUI_ID__CAM]) Gui_Cam->gui.draw();
+	
+	if(b_DispGui[GUI_ID__PARTICLE]) Gui_Particle->gui.draw();
 }
 
 /******************************
@@ -303,6 +319,11 @@ void ofApp::Guis_LoadSetting()
 	********************/
 	FileName = "Stage.xml";
 	if(checkif_FileExist(FileName.c_str())) Gui_Stage->gui.loadFromFile(FileName.c_str());
+	
+	/********************
+	********************/
+	FileName = "particle.xml";
+	if(checkif_FileExist(FileName.c_str())) Gui_Particle->gui.loadFromFile(FileName.c_str());
 }
 
 /******************************
@@ -338,6 +359,7 @@ void ofApp::keyPressed(int key){
 		case '1':
 		case '2':
 		case '3':
+		case '4':
 		{
 			int GuiId = key - '0';
 			b_DispGui[GuiId] = !b_DispGui[GuiId];

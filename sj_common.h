@@ -39,12 +39,14 @@ enum{
 	GUI_ID__STAGE,
 	
 	GUI_ID__CAM,
+	GUI_ID__PARTICLE,
 	
 	NUM_GUIS,
 };
 
 enum{
 	THREAD_TIMETABLE__EVENT,
+	THREAD_TIMETABLE__COLOR,
 	
 	NUM_THREAD_TIMETABLE,
 };
@@ -168,6 +170,31 @@ public:
 	ofxFloatSlider CamAngle;
 };
 
+/**************************************************
+**************************************************/
+class GUI_PARTICLE{
+private:
+	/****************************************
+	****************************************/
+	
+public:
+	/****************************************
+	****************************************/
+	void setup(string GuiName, string FileName = "gui.xml", float x = 10, float y = 10);
+	
+	/****************************************
+	****************************************/
+	ofxPanel gui;
+	
+	ofxFloatSlider ParticleSize;
+	ofxFloatSlider Particle_friction_DownPer_sec;
+	ofxFloatSlider Particle_forceScale;
+	// ofxVec4Slider ParticleColor;
+	ofxFloatSlider ParticleSpeedThresh;
+	
+	ofxVec4Slider ParticleColor;
+};
+
 /************************************************************
 ************************************************************/
 extern void fopen_LogFile();
@@ -184,5 +211,5 @@ extern GUI_FFT *Gui_FFT[2];
 extern GUI_CHARACTER *Gui_Character[3];
 extern GUI_STAGE* Gui_Stage;
 extern GUI_CAM* Gui_Cam;
-
+extern GUI_PARTICLE* Gui_Particle;
 

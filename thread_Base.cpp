@@ -289,7 +289,7 @@ void THREAD_BASE_STEPOVER::Reset()
 			waitForThread(true);
 		}
 		
-		ofExit();
+		// ofExit();
 
 	}else{
 		b_valid = true;

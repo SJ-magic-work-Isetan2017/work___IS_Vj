@@ -18,6 +18,7 @@ GUI_FFT *Gui_FFT[2];
 GUI_CHARACTER *Gui_Character[3];
 GUI_STAGE* Gui_Stage;
 GUI_CAM* Gui_Cam;
+GUI_PARTICLE* Gui_Particle;
 
 /************************************************************
 ************************************************************/
@@ -153,6 +154,32 @@ void GUI_CAM::setup(string GuiName, string FileName, float x, float y)
 	}
 	{
 		gui.add(CamAngle.setup("angle", 60, 10, 120));
+	}
+}
+
+/******************************
+******************************/
+void GUI_PARTICLE::setup(string GuiName, string FileName, float x, float y)
+{
+	/********************
+	********************/
+	gui.setup(GuiName.c_str(), FileName.c_str(), x, y);
+	
+	/********************
+	********************/
+	gui.add(ParticleSize.setup("ParticleSize", 1.5, 1.0, 4));
+	gui.add(ParticleSpeedThresh.setup("Speed thresh", 0.2, 0.01, 1));
+	
+	gui.add(Particle_friction_DownPer_sec.setup("friction sec", 0.0991, 0.01, 1.0));
+	// gui.add(Particle_forceScale.setup("Force Scale", 0.00019, 0.0001, 0.001));
+	gui.add(Particle_forceScale.setup("Force Scale", 0.00016, 0.0001, 0.001));
+	
+	{
+		ofVec4f initColor = ofVec4f(0.2, 0.5, 1.0, 0.5);
+		ofVec4f minColor = ofVec4f(0, 0, 0, 0);
+		ofVec4f maxColor = ofVec4f(1, 1, 1, 1);
+		
+		gui.add(ParticleColor.setup("color", initColor, minColor, maxColor));
 	}
 }
 

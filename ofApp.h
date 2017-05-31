@@ -22,6 +22,8 @@ note
 #include "test_char.h"
 #include "test_Stage.h"
 
+#include "particle.h"
+
 /************************************************************
 ************************************************************/
 #define EXE__DEMO			0
@@ -62,6 +64,10 @@ private:
 	TEST_CHARACTER test_Character;
 	TEST_STAGE test_Stage;
 	STAGE_MANAGER StageManager;
+	
+	/********************
+	********************/
+	PARTICLE_SET *particle;
 	
 	/****************************************
 	****************************************/
