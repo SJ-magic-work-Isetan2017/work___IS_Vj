@@ -48,7 +48,7 @@ CHARACTER::CHARACTER(int _NUM_CHARACTERS_IN_MY_PARENT, int _CHARACTER_ID_IN_MY_P
 	p[2].setup( ofVec3f( img.getWidth()/2 - 1,  img.getHeight()/2 - 1) );
 	p[3].setup( ofVec3f( img.getWidth()/2 - 1, -img.getHeight()/2) );
 	
-	const float RandomHeight = 5;
+	const float RandomHeight = 6;
 	if(NUM_CHARACTERS_IN_MY_PARENT == 1){
 		center.setup( ofVec3f(0, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 		

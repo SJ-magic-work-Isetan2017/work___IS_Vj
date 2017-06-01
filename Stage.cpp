@@ -72,7 +72,20 @@ STAGE::~STAGE()
 ******************************/
 void STAGE::changeEffect()
 {
-	EffectType = EffectStage->get_RandomSelect_EffectType();
+	const int MAX_RETRY = 5;
+	
+	for(int i = 0; i < MAX_RETRY; i++){
+		EffectType = EffectStage->get_RandomSelect_EffectType();
+		
+		if( (NUM_CHARACTERS == 2) && (EffectType == EFFECT::EFFECT_TYPE__KALEIDOSCOPE) ){
+			/*
+				真ん中にcharacterが配置されていないので、何も絵が出ない時間が生じてしまう.
+				retry routineを追加した代わりに、"WEIGHT__KALEIDOSCOPE"を重くしてBalanceを取った.
+			*/
+		}else{
+			break;
+		}
+	}
 }
 
 /******************************

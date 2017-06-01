@@ -108,15 +108,31 @@ void EFFECT::draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst)
 		ofDisableAlphaBlending();
 		
 #ifdef TEXTMASK_SMALL
-		const float ofs_x = 10;
+		const float ofs_x = 10; // 文字列間のspace.
 		const float ofs_y = 10;
-		int counter = 0;
-		string text = "ISETAN JAPAN SENSES";
+		int y_id = 0;
+		string text			= "ISETAN JAPAN SENSES";
+		
+		/* */
+		string prankText	= "SJ.MAGIC";
+		int prankCounter = 0;
+		const int prankInterval = 8;
+		
+		/* */
 		for(float y = 0; y < HEIGHT; y+=font.stringHeight(text) + ofs_y){
-			for(float x = counter * (-50); x < WIDTH; x+=font.stringWidth(text) + ofs_x){
-				font.drawString(text, x, y);
+			int FontWidth;
+			for(float x = y_id * (-20); x < WIDTH; x+=FontWidth + ofs_x){
+				if(prankCounter % prankInterval == 0){
+					font.drawString(prankText, x, y);
+					FontWidth = font.stringWidth(prankText);
+				}else{
+					font.drawString(text, x, y);
+					FontWidth = font.stringWidth(text);
+				}
+				
+				prankCounter++;
 			}
-			counter+=1;
+			y_id++;
 		}
 #else		
 

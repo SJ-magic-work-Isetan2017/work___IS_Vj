@@ -8,7 +8,7 @@
 /******************************
 ******************************/
 TEST_CHARACTER::TEST_CHARACTER()
-: NUM_CHARACTERS(2)
+: NUM_CHARACTERS(3)
 {
 	for(int i = 0; i < NUM_CHARACTERS; i++){
 		character[i] = new CHARACTER(NUM_CHARACTERS, i);
