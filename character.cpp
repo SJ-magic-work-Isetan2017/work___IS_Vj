@@ -50,15 +50,19 @@ CHARACTER::CHARACTER(int _NUM_CHARACTERS_IN_MY_PARENT, int _CHARACTER_ID_IN_MY_P
 	
 	const float RandomHeight = 6;
 	if(NUM_CHARACTERS_IN_MY_PARENT == 1){
-		center.setup( ofVec3f(0, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+		/********************
+		-HEIGHT/(RandomHeight * 2)
+		は、全体的に少し重心を下に落とすため.
+		********************/
+		center.setup( ofVec3f(0, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 		
 	}else if(NUM_CHARACTERS_IN_MY_PARENT == 2){
 		switch(CHARACTER_ID_IN_MY_PARENT){
 			case 0:
-				center.setup( ofVec3f(-WIDTH/4, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+				center.setup( ofVec3f(-WIDTH/4, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 				break;
 			case 1:
-				center.setup( ofVec3f( WIDTH/4, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+				center.setup( ofVec3f( WIDTH/4, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 				break;
 			default:
 				ERROR_MSG(); std::exit(1);
@@ -68,13 +72,13 @@ CHARACTER::CHARACTER(int _NUM_CHARACTERS_IN_MY_PARENT, int _CHARACTER_ID_IN_MY_P
 	}else if(NUM_CHARACTERS_IN_MY_PARENT == 3){
 		switch(CHARACTER_ID_IN_MY_PARENT){
 			case 0:
-				center.setup( ofVec3f(-2 * WIDTH/6, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+				center.setup( ofVec3f(-2 * WIDTH/6, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 				break;
 			case 1:
-				center.setup( ofVec3f( 2 * WIDTH/6, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+				center.setup( ofVec3f( 2 * WIDTH/6, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 				break;
 			case 2:
-				center.setup( ofVec3f(0, ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
+				center.setup( ofVec3f(0, -HEIGHT/(RandomHeight * 2) + ofRandom(-HEIGHT/RandomHeight, HEIGHT/RandomHeight)) );
 				break;
 			default:
 				ERROR_MSG(); std::exit(1);

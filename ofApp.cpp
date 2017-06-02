@@ -210,9 +210,11 @@ void ofApp::draw_time()
 	/********************
 	********************/
 	// ofSetColor(255, 255, 255);
-	ofSetColor(180);
+	ofSetColor(100);
 	
-	font.drawString(buf, 10, 50);
+	// if( (MusicTime_ms == -1) || (MusicTime_ms < 5000) ){
+		font.drawString(buf, 10, 50);
+	// }
 }
 
 //--------------------------------------------------------------
