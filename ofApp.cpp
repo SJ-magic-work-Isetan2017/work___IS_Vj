@@ -204,6 +204,7 @@ void ofApp::draw_time()
 		int ms	= MusicTime_ms % 1000;
 		
 		sprintf(buf, "%6d:%6d:%6d\n%6.1f", min, sec, ms, ofGetFrameRate());
+		// sprintf(buf, "%3d:%3d", min, sec);
 	}
 	
 	

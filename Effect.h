@@ -65,6 +65,8 @@ private:
 	void draw_Mirror_LR(ofFbo* fbo_src, ofFbo* fbo_dst);
 	void draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst);
 	
+	int Dice_index(int *Weight, int NUM);
+	
 public:
 	/****************************************
 	****************************************/
@@ -73,7 +75,13 @@ public:
 		
 		EFFECT_TYPE__SPLIT_2x2,
 		EFFECT_TYPE__SPLIT_3x3,
+		EFFECT_TYPE__SPLIT_4x4,
 		EFFECT_TYPE__SPLIT_5x5,
+		EFFECT_TYPE__SPLIT_6x6,
+		EFFECT_TYPE__SPLIT_8x8,
+		EFFECT_TYPE__SPLIT_10x10,
+		EFFECT_TYPE__SPLIT_20x20,
+		EFFECT_TYPE__SPLIT_30x30,
 		
 		EFFECT_TYPE__KALEIDOSCOPE,
 		

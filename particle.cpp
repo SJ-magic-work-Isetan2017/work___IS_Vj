@@ -36,9 +36,6 @@ static float et_ColorChange_Start = 0;
 /********************
 ********************/
 TIMETABLE_ON TimeTable_On[] = {
-	TIMETABLE_ON(18,  0),
-	TIMETABLE_ON(18, 30),
-	TIMETABLE_ON(19,  0),
 	TIMETABLE_ON(19, 30),
 	TIMETABLE_ON(20,  0),
 	TIMETABLE_ON(20, 30),

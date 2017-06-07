@@ -65,8 +65,32 @@ void EFFECT::draw(EFFECT_TYPE EffectType, ofFbo* fbo_src, ofFbo* fbo_dst)
 			draw_Split(fbo_src, fbo_dst, 3);
 			break;
 			
+		case EFFECT_TYPE__SPLIT_4x4:
+			draw_Split(fbo_src, fbo_dst, 4);
+			break;
+			
 		case EFFECT_TYPE__SPLIT_5x5:
 			draw_Split(fbo_src, fbo_dst, 5);
+			break;
+			
+		case EFFECT_TYPE__SPLIT_6x6:
+			draw_Split(fbo_src, fbo_dst, 6);
+			break;
+			
+		case EFFECT_TYPE__SPLIT_8x8:
+			draw_Split(fbo_src, fbo_dst, 8);
+			break;
+			
+		case EFFECT_TYPE__SPLIT_10x10:
+			draw_Split(fbo_src, fbo_dst, 10);
+			break;
+			
+		case EFFECT_TYPE__SPLIT_20x20:
+			draw_Split(fbo_src, fbo_dst, 20);
+			break;
+			
+		case EFFECT_TYPE__SPLIT_30x30:
+			draw_Split(fbo_src, fbo_dst, 30);
 			break;
 			
 		case EFFECT_TYPE__KALEIDOSCOPE:
@@ -111,7 +135,7 @@ void EFFECT::draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst)
 		const float ofs_x = 10; // 文字列間のspace.
 		const float ofs_y = 10;
 		int y_id = 0;
-		string text			= "ISETAN JAPAN SENSES";
+		string text			= "TSUYAMATSURI BON DANCE";
 		
 		/* */
 		string prankText	= "SJ.MAGIC";
@@ -119,7 +143,7 @@ void EFFECT::draw_TextMask(ofFbo* fbo_src, ofFbo* fbo_dst)
 		const int prankInterval = 8;
 		
 		/* */
-		for(float y = 0; y < HEIGHT; y+=font.stringHeight(text) + ofs_y){
+		for(float y = font.stringHeight(text); y < HEIGHT + font.stringHeight(text); y+=font.stringHeight(text) + ofs_y){
 			int FontWidth;
 			for(float x = y_id * (-20); x < WIDTH; x+=FontWidth + ofs_x){
 				if(prankCounter % prankInterval == 0){
@@ -407,6 +431,32 @@ void EFFECT::draw_Split(ofFbo* fbo_src, ofFbo* fbo_dst, int NumSplit)
 ******************************/
 EFFECT::EFFECT_TYPE EFFECT::get_RandomSelect_EffectType()
 {
+	/********************
+	********************/
+	int Weight[NUM_EFFECT_TYPE] = {
+		0, // EFFECT_TYPE__NONE,
+
+		0, // EFFECT_TYPE__SPLIT_2x2,
+		0, // EFFECT_TYPE__SPLIT_3x3,
+		1, // EFFECT_TYPE__SPLIT_4x4,
+		0, // EFFECT_TYPE__SPLIT_5x5,
+		1, // EFFECT_TYPE__SPLIT_6x6,
+		1, // EFFECT_TYPE__SPLIT_8x8,
+		0, // EFFECT_TYPE__SPLIT_10x10,
+		0, // EFFECT_TYPE__SPLIT_20x20,
+		0, // EFFECT_TYPE__SPLIT_30x30,
+
+		5, // EFFECT_TYPE__KALEIDOSCOPE,
+
+		0, // EFFECT_TYPE__MIRROR_LR,
+		0, // EFFECT_TYPE__MIRROR_VERT,
+
+		1, // EFFECT_TYPE__TEXTMASK,
+	};
+	
+	return (EFFECT_TYPE)Dice_index(Weight, NUM_EFFECT_TYPE);
+	
+	/*
 	int RandomNum = rand() % TOTAL_WEIGHT;
 	
 	if(RandomNum <= WEIGHT__NONE){
@@ -438,7 +488,39 @@ EFFECT::EFFECT_TYPE EFFECT::get_RandomSelect_EffectType()
 	}else{
 		ERROR_MSG(); std::exit(1);
 	}
+	*/
 }
 
+/******************************
+******************************/
+int EFFECT::Dice_index(int *Weight, int NUM)
+{
+	/***********************
+	cal sum of Weight
+	***********************/
+	int TotalWeight = 0;
+	int i;
+	for(i = 0; i < NUM; i++){
+		TotalWeight += Weight[i];
+	}
+	
+	if(TotalWeight == 0) { return -1; }
+	
+	/***********************
+	random number
+	***********************/
+	int RandomNumber = rand() % TotalWeight;
+	
+	/***********************
+	define play mode
+	***********************/
+	int index;
+	for(TotalWeight = 0, index = 0; /* */; index++){
+		TotalWeight += Weight[index];
+		if(RandomNumber < TotalWeight) break;
+	}
+	
+	return index;
+}
 
 
