@@ -1,0 +1,14 @@
+<FFT_1>
+	<GraphDisp>
+		<Radius>201.531</Radius>
+		<BarHeight>90</BarHeight>
+		<BarWidth_Btm>15</BarWidth_Btm>
+		<BarWidth_Top>1.5</BarWidth_Top>
+		<b_GainAdjust>0</b_GainAdjust>
+		<AudioAmp>0.0469388</AudioAmp>
+		<Rotaion_deg>205.714</Rotaion_deg>
+		<pos>560.3, 367.647</pos>
+	</GraphDisp>
+	<BarColor>55, 162, 255, 200</BarColor>
+<FFT_1/>
+</FFT_1>

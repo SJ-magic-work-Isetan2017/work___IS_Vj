@@ -36,6 +36,14 @@ public:
 		NUM_STRUCTURES,
 	};
 	
+	enum STRUCTURE_SURFACE_TYPE{
+		STRUCTURE_SURFACE_STATIC,
+		STRUCTURE_SURFACE_TARGET_FAST,
+		STRUCTURE_SURFACE_CAMPOS_FAST,
+		
+		NUM_STRUCTURE_SURFACE_TYPES,
+	};
+	
 private:
 	/****************************************
 	****************************************/
@@ -86,7 +94,7 @@ private:
 	
 	EVENT Event;
 	
-	bool b_IsMoreDynamicCamMov_forSurface;
+	STRUCTURE_SURFACE_TYPE StructureSurfaceType;
 	
 	int LastMusicTime;
 	

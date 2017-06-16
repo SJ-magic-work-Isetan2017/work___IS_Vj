@@ -1,0 +1,8 @@
+<particle>
+	<ParticleSize>1.57</ParticleSize>
+	<Speed_thresh>0.2</Speed_thresh>
+	<friction_sec>0.0991</friction_sec>
+	<Force_Scale>0.000154</Force_Scale>
+	<color>0.2, 0.5, 1, 0.5</color>
+<particle/>
+</particle>

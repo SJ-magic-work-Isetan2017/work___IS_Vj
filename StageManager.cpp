@@ -13,7 +13,7 @@ STAGE_MANAGER::STAGE_MANAGER()
 , t_CamParam_Duration(1.0)
 , Event(EVENT__NONE)
 , fp_Scenario(NULL)
-, b_IsMoreDynamicCamMov_forSurface(false)
+, StructureSurfaceType(STRUCTURE_SURFACE_STATIC)
 , LastMusicTime(-1)
 {
 	if(BootMode == BOOT_MODE__AUTOPLAY){
@@ -99,8 +99,7 @@ void STAGE_MANAGER::Dice_Structure()
 			CurrentStructureType = temp;
 			
 			if(CurrentStructureType == STRUCTURE_SURFACE){
-				if(rand() % 2 == 0) b_IsMoreDynamicCamMov_forSurface = true;
-				else				b_IsMoreDynamicCamMov_forSurface = false;
+				StructureSurfaceType = (STRUCTURE_SURFACE_TYPE)(rand() % NUM_STRUCTURE_SURFACE_TYPES);
 			}
 			return;
 		}
@@ -165,6 +164,14 @@ void STAGE_MANAGER::update(int MusicTime_ms, float fftGain)
 		CamParam_From = CamParam_Current;
 		CurrentStructure_changeStage();
 		
+		/********************
+		"STRUCTURE_SURFACE_CAMPOS_FAST"の時、最後の所で"クッ"とした動きが気になったので、
+		cam angleもanimationすることで、柔らかい動きにしてみた.
+		********************/
+		if( (CurrentStructureType == STAGE_STRUCTURE::STRUCTURE_TYPE__SURFACE) && (StructureSurfaceType == STRUCTURE_SURFACE_CAMPOS_FAST) ){
+			CamParam_From.CamAngle = CamParam_To.CamAngle * 2.5;
+		}
+		
 	}else if(Event == EVENT__CHANGE_STAGE_IMMEDIATE){
 		CurrentStructure_changeStage();
 		CamParam_From = CamParam_To;
@@ -206,16 +213,28 @@ void STAGE_MANAGER::cal_CamParamCurrent()
 	float dt = ElapsedTime - t_CamParam_ChangeFrom;
 	
 	if(dt < t_CamParam_Duration){
-		CamParam_Current.CamPosition = CamParam_From.CamPosition + (CamParam_To.CamPosition - CamParam_From.CamPosition) * dt/t_CamParam_Duration;
+		/********************
+		********************/
+		if( (CurrentStructureType == STAGE_STRUCTURE::STRUCTURE_TYPE__SURFACE) && (StructureSurfaceType == STRUCTURE_SURFACE_CAMPOS_FAST) ){
+			CamParam_Current.CamPosition = CamParam_To.CamPosition; // すぐ移動完了.
+		}else{
+			CamParam_Current.CamPosition = CamParam_From.CamPosition + (CamParam_To.CamPosition - CamParam_From.CamPosition) * dt/t_CamParam_Duration;
+		}
 		
-		if( (CurrentStructureType == STAGE_STRUCTURE::STRUCTURE_TYPE__SURFACE) && b_IsMoreDynamicCamMov_forSurface ){
-			CamParam_Current.CamLookAt = CamParam_To.CamLookAt;
+		/********************
+		********************/
+		if( (CurrentStructureType == STAGE_STRUCTURE::STRUCTURE_TYPE__SURFACE) && (StructureSurfaceType == STRUCTURE_SURFACE_TARGET_FAST) ){
+			CamParam_Current.CamLookAt = CamParam_To.CamLookAt; // すぐ移動完了.
 		}else{
 			CamParam_Current.CamLookAt = CamParam_From.CamLookAt + (CamParam_To.CamLookAt - CamParam_From.CamLookAt) * dt/t_CamParam_Duration;
 		}
 		
+		/********************
+		********************/
 		CamParam_Current.CamAngle = CamParam_From.CamAngle + (CamParam_To.CamAngle - CamParam_From.CamAngle) * dt/t_CamParam_Duration;
 		
+		/********************
+		********************/
 		if(CamParam_From.CamUpper == CamParam_To.CamUpper){
 			CamParam_Current.CamUpper = CamParam_To.CamUpper;
 		}else{

@@ -36,13 +36,15 @@ static float et_ColorChange_Start = 0;
 /********************
 ********************/
 TIMETABLE_ON TimeTable_On[] = {
+	TIMETABLE_ON(19,  0),
 	TIMETABLE_ON(19, 30),
 	TIMETABLE_ON(20,  0),
 	TIMETABLE_ON(20, 30),
 	TIMETABLE_ON(21,  0),
 	TIMETABLE_ON(21, 30),
 	TIMETABLE_ON(22,  0),
-	TIMETABLE_ON(22, 30),
+	
+	TIMETABLE_ON(23, 30),
 };
 
 const int NUM_TIMETABLE_ON = sizeof(TimeTable_On) / sizeof(TimeTable_On[0]);

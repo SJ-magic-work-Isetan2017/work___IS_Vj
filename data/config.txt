@@ -1,0 +1,2 @@
+<front>		/Users/user/Documents/Isetan/of_v0.9.0_osx_release/apps/myApps/IS_Vj/bin/data/character
+<back>		/Users/user/Documents/Isetan/of_v0.9.0_osx_release/apps/myApps/IS_Vj/bin/data/back

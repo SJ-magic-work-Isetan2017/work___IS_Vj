@@ -1,0 +1,11 @@
+<Character_num_3>
+	<vert_NoiseAmp>170</vert_NoiseAmp>
+	<vert_NoiseFreq>1</vert_NoiseFreq>
+	<vert_fft_sync>1</vert_fft_sync>
+	<center_NoiseAmp>152</center_NoiseAmp>
+	<center_NoiseFreq>2.59</center_NoiseFreq>
+	<BaseScale>0.6035</BaseScale>
+	<fftGain_Range>0.035</fftGain_Range>
+<Character_num_3/>
+<Alpha>0.98</Alpha>
+</Character_num_3>
